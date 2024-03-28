@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Triangle Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: inline-block;
+            width: 70px;
+            text-align: left !important;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            width: 150px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 20px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #667eea, #764ba2);
+        }
+
+        #result {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .resultbox {
+            display: flex;
+            align-items: flex-start;
+            height: 10%;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        p {
+            text-align: left;
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+
+        marquee {
+            margin: 16px;
+        }
+    </style>
+    <script>
+        function checkTriangle() {
+            var side1 = parseInt(document.getElementById("side1").value);
+            var side2 = parseInt(document.getElementById("side2").value);
+            var side3 = parseInt(document.getElementById("side3").value);
+
+            if (!Number.isInteger(side1) || !Number.isInteger(side2) || !Number.isInteger(side3) || side1 <= 0 || side2 <= 0 || side3 <= 0) {
+                alert("กรุณากรอกเป็นเลขจำนวนเต็มบวก");
+                return;
+            }
+
+            if (isNaN(side1) || isNaN(side2) || isNaN(side3)) {
+                alert("กรุณากรอกด้านให้ครบทั้ง 3 ด้าน");
+                return;
+            }
+
+            if (side1 >= side2 + side3 || side2 >= side1 + side3 || side3 >= side1 + side2) {
+                alert("ไม่สามารถสร้างสามเหลี่ยมได้ โปรดป้อนข้อมูลใหม่");
+                return;
+            }
+
+            var result = document.getElementById("result");
+            if (side1 === side2 && side2 === side3) {
+                result.innerHTML = "Equilateral Triangle";
+            } else if (side1 === side2 || side2 === side3 || side1 === side3) {
+                result.innerHTML = "Isosceles Triangle";
+            } else if (Math.pow(side1, 2) === Math.pow(side2, 2) + Math.pow(side3, 2) || Math.pow(side2, 2) === Math.pow(side1, 2) + Math.pow(side3, 2) || Math.pow(side3, 2) === Math.pow(side1, 2) + Math.pow(side2, 2)) {
+                result.innerHTML = "Right Triangle";
+            } else {
+                result.innerHTML = "Scalene Triangle";
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <h1>Triangle Checker by รักบู</h1>
+    <div class="row">
+        <div class="container">
+            <label for="side1">Side 1:</label>
+            <input type="text" id="side1" name="side1"><br><br>
+            <label for="side2">Side 2:</label>
+            <input type="text" id="side2" name="side2"><br><br>
+            <label for="side3">Side 3:</label>
+            <input type="text" id="side3" name="side3"><br><br>
+            <button onclick="checkTriangle()">Enter</button><br><br>
+            <div class="resultbox">
+                <label for="result">Result:</label>
+                <span dir="ltr" id="result"></span>
+            </div>
+        </div>
+    </div>
+    <marquee scrollamount="21" behavior="scroll" direction="left">นายสุรศักดิ์ ตันสุดเจริญยิ่ง (64010935)</marquee>
+    <marquee scrollamount="26" behavior="scroll" direction="left">นางสาวพิมพ์ชนก ฤทธิ์ช่วย (64011210)</marquee>
+    <marquee scrollamount="30" behavior="scroll" direction="left">นายศุภวิชญ์ พระสุรัตน์ (64011289)</marquee>
+
+</body>
+
+</html>
