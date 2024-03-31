@@ -90,18 +90,22 @@
             var side2 = parseInt(document.getElementById("side2").value);
             var side3 = parseInt(document.getElementById("side3").value);
 
+            if (isNaN(side1) || isNaN(side2) || isNaN(side3)) {
+                alert("กรุณากรอกด้านให้ครบทั้ง 3 ด้าน");
+                return;
+            }
             if (!Number.isInteger(side1) || !Number.isInteger(side2) || !Number.isInteger(side3) || side1 <= 0 || side2 <= 0 || side3 <= 0) {
                 alert("กรุณากรอกเป็นเลขจำนวนเต็มบวก");
                 return;
             }
 
-            if (isNaN(side1) || isNaN(side2) || isNaN(side3)) {
-                alert("กรุณากรอกด้านให้ครบทั้ง 3 ด้าน");
+            if (side1 >= side2 + side3 || side2 >= side1 + side3 || side3 >= side1 + side2) {
+                alert("ไม่สามารถสร้างสามเหลี่ยมได้ โปรดป้อนข้อมูลใหม่");
                 return;
             }
 
-            if (side1 >= side2 + side3 || side2 >= side1 + side3 || side3 >= side1 + side2) {
-                alert("ไม่สามารถสร้างสามเหลี่ยมได้ โปรดป้อนข้อมูลใหม่");
+            if (side1 > 999999 || side2 > 999999 || side3 > 999999) {
+                alert("กรุณากรอกเฉพาะเลขจำนวนเต็มไม่เกิน 999999");
                 return;
             }
 
@@ -116,6 +120,22 @@
                 result.innerHTML = "Scalene Triangle";
             }
         }
+
+        function checkInput(event) {
+            var char = event.key;
+            var keyCode = event.keyCode || event.which;
+            if (char.length === 1 && (keyCode < 48 || keyCode > 57)) {
+                event.preventDefault();
+            }
+        }
+
+        function checkMultipleInput(event) {
+            var value = event.target.value;
+            if (value.includes(" ") || value.includes(",")) {
+                alert("กรุณากรอกเฉพาะค่าเดียวสำหรับแต่ละด้าน");
+                event.target.value = "";
+            }
+        }
     </script>
 </head>
 
@@ -125,11 +145,14 @@
     <div class="row">
         <div class="container">
             <label for="side1">Side 1:</label>
-            <input type="text" id="side1" name="side1"><br><br>
+            <input type="text" id="side1" name="side1" onkeypress="checkInput(event)"
+                onblur="checkMultipleInput(event)"><br><br>
             <label for="side2">Side 2:</label>
-            <input type="text" id="side2" name="side2"><br><br>
+            <input type="text" id="side2" name="side2" onkeypress="checkInput(event)"
+                onblur="checkMultipleInput(event)"><br><br>
             <label for="side3">Side 3:</label>
-            <input type="text" id="side3" name="side3"><br><br>
+            <input type="text" id="side3" name="side3" onkeypress="checkInput(event)"
+                onblur="checkMultipleInput(event)"><br><br>
             <button onclick="checkTriangle()">Enter</button><br><br>
             <div class="resultbox">
                 <label for="result">Result:</label>
